@@ -1,13 +1,13 @@
 Tetris tetris;
 
 void settings() {
-  size(300, 600);
+  int playfieldWidth = Playfield.PLAYFIELD_BLOCK_WIDTH * Tetris.PLAYFIELD_BLOCK_SCALE;
+  int playfieldHeight = Playfield.PLAYFIELD_BLOCK_HEIGHT * Tetris.PLAYFIELD_BLOCK_SCALE;
+  size(playfieldWidth, playfieldHeight);
 }
 
 void setup() {
   surface.setTitle("Tetris");
-  frameRate(120);
-  background(0);
   smooth();
 
   tetris = new Tetris();

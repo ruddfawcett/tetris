@@ -1,7 +1,7 @@
 import java.util.Map;
 import java.util.HashMap;
 
-public enum TetrominoType {
+public enum Tetromino {
   I(1),  // cyan
   J(2),  // blue
   L(3),  // orange
@@ -12,7 +12,7 @@ public enum TetrominoType {
 
   private final int value;
 
-  TetrominoType(int value) {
+  Tetromino(int value) {
     this.value = value;
   }
 
@@ -20,8 +20,8 @@ public enum TetrominoType {
     return value;
   }
 
-  public Map<Orientation, int[][]> getConfigurations() {
-    Map<Orientation, int[][]> configurations = new HashMap<Orientation, int[][]>();
+  public Map<PieceOrientation, int[][]> getConfigurations() {
+    Map<PieceOrientation, int[][]> configurations = new HashMap<PieceOrientation, int[][]>();
     int[][] up = new int[][]{};
     int[][] right = new int[][]{};
     int[][] down = new int[][]{};
@@ -178,10 +178,10 @@ public enum TetrominoType {
           break;
     }
 
-    configurations.put(Orientation.UP, up);
-    configurations.put(Orientation.RIGHT, right);
-    configurations.put(Orientation.DOWN, down);
-    configurations.put(Orientation.LEFT, left);
+    configurations.put(PieceOrientation.UP, up);
+    configurations.put(PieceOrientation.RIGHT, right);
+    configurations.put(PieceOrientation.DOWN, down);
+    configurations.put(PieceOrientation.LEFT, left);
 
     return configurations;
   }

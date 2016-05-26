@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 class Playfield {
-  private static final color PLAYFIELD_BACKGROUND_COLOR = #2A2A2A;//58595B;
+  private static final color PLAYFIELD_BACKGROUND_COLOR = #000000;//58595B;
     
   private final int PLAYFIELD_WIDTH;
   private final int PLAYFIELD_HEIGHT;
@@ -98,13 +98,17 @@ class Playfield {
     }
   }
 
-  void drawOverlay() {
+  void drawOverlay(String text) {
     fill(color(0,0,0,200));
     rect(0,0,PLAYFIELD_WIDTH+1,PLAYFIELD_HEIGHT);
     textSize(40);
     fill(color(255));
     textAlign(CENTER, CENTER);
-    text(tetris.getGameState().overlayText(), 0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT);
+    text(text, 0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT);
+  }
+
+  void drawOverlay() {
+    drawOverlay(tetris.getGameState().overlayText());
   }
 
   int removeRows() {

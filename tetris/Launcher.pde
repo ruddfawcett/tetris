@@ -11,7 +11,7 @@ void setup() {
   surface.setTitle("Tetris");
   smooth();
 
-  tetris = new Tetris();
+  tetris = new Tetris(this);
 }
 
 void draw() {

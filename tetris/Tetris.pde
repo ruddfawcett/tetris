@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 class Tetris {
   private static final int PLAYFIELD_BLOCK_SCALE = 30;
   private static final int SOFT_DROP_BLOCK_SCORE = 10;
@@ -14,8 +16,12 @@ class Tetris {
 
   private Playfield playfield;
   private Scoreboard scoreboard;
+  private PApplet applet;
+  
+  private SoundFile blip;
+  private SoundFile swoosh;
 
-  Tetris() {
+  Tetris(PApplet applet) {
     int playfieldWidth = Playfield.PLAYFIELD_BLOCK_WIDTH * PLAYFIELD_BLOCK_SCALE;
     int playfieldHeight = Playfield.PLAYFIELD_BLOCK_HEIGHT * PLAYFIELD_BLOCK_SCALE;
 
@@ -25,6 +31,9 @@ class Tetris {
     this.nextPiece = new Piece();
     
     this.scoreboard.drawNextPiece(nextPiece);
+    
+    this.blip = new SoundFile(applet, "sounds/blip.mp3");
+    this.swoosh = new SoundFile(applet, "sounds/swoosh.mp3");
   }
 
   void restart() {
@@ -127,7 +136,7 @@ class Tetris {
   }
   
   // http://tetris.wikia.com/wiki/Scoring
-  int calculateScore(int lines) {
+  int calculateScore(int lines) {    
    if (lines == 1) {
      return 40 * (level + 1);
    } else if (lines == 2) {
@@ -160,16 +169,22 @@ class Tetris {
       }
     } else {
       playfield.add(currentPiece);
+      blip.play();
       currentPiece = nextPiece;
       nextPiece = new Piece();
 
       int numLinesRemoved = playfield.removeRows();
+      if (numLinesRemoved > 0) {
+       swoosh.play();
+      }
+      
       score += calculateScore(numLinesRemoved);
       removedLines += numLinesRemoved;
       level = (int)(score/10000) + 1;
 
       if (!playfield.canMove(currentPiece, Direction.DOWN)) {
         playfield.add(currentPiece);
+        blip.play();
         playfield.draw();
         end();
         

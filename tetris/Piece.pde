@@ -6,6 +6,7 @@ class Piece {
   private int x;
   private int y;
   private int type;
+  private boolean hasEmptyFirstRow;
 
   private PieceOrientation pieceOrientation;
 
@@ -24,6 +25,8 @@ class Piece {
 
     this.configurations = randomTetromino.getConfigurations();
     this.type = randomTetromino.getValue();
+    
+    this.hasEmptyFirstRow = hasEmptyFirstRow();
   }
 
   int getX() {
@@ -34,12 +37,27 @@ class Piece {
     return y;
   }
 
-  color getType() {
-    return type;
-  }
-
   int getSize() {
     return configurations.get(this.pieceOrientation).length;
+  }
+  
+  int getType() {
+   return type; 
+  }
+  
+  // hacky way of getting the right offsetting
+  boolean hasEmptyFirstRow() {
+    for (int col = 0; col < getSize(); col++) {
+      if (getBlock(0, col) != 0) {
+        return false;
+      }
+    }
+    
+    return true;
+  }
+  
+  boolean getHasEmptyFirstRow() {
+   return hasEmptyFirstRow; 
   }
 
   PieceOrientation getPieceOrientation() {

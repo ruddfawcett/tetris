@@ -1,6 +1,8 @@
 import java.util.Arrays;
 
 class Playfield {
+  private static final color PLAYFIELD_BACKGROUND_COLOR = #2A2A2A;//58595B;
+    
   private final int PLAYFIELD_WIDTH;
   private final int PLAYFIELD_HEIGHT;
 
@@ -8,12 +10,16 @@ class Playfield {
   private static final int PLAYFIELD_BLOCK_HEIGHT = 20;
 
   private final int BLOCK_WIDTH;
+  
+  private Tetris tetris;
 
   private PImage[] blockImages;
 
   private int[][] matrix;
 
-  Playfield(int width, int height) {
+  Playfield(Tetris tetris, int width, int height) {
+    this.tetris = tetris;
+    
     this.PLAYFIELD_WIDTH = width;
     this.PLAYFIELD_HEIGHT = height;
 
@@ -29,6 +35,14 @@ class Playfield {
    for (int i = 0; i < this.blockImages.length; i++) {
      blockImages[i] = loadImage("blocks/tetris-block-"+i+".png");
    }
+  }
+  
+  int getBlockWidth() {
+    return BLOCK_WIDTH;
+  }
+
+  PImage[] getBlockImages() {
+    return blockImages;
   }
 
   boolean add(Piece piece) {
@@ -56,7 +70,12 @@ class Playfield {
     for (int row = 0; row < piece.getSize(); row++)
       for (int col = 0; col < piece.getSize(); col++) {
         if (piece.getBlock(col, row) != 0) {
-          image(blockImages[piece.getType()],(x + row) * BLOCK_WIDTH, (y + col) * BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH);
+          int yOffset = y + col;
+          if (piece.getHasEmptyFirstRow()) {
+            yOffset = y + (col-1);
+          }
+          
+          image(blockImages[piece.getType()],(x + row) * BLOCK_WIDTH, yOffset * BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH);
         }
       }
   }
@@ -66,9 +85,26 @@ class Playfield {
       for (int col = 0; col < PLAYFIELD_BLOCK_WIDTH; col++) {
         int x = col * BLOCK_WIDTH;
         int y = row * BLOCK_WIDTH;
-        image(blockImages[matrix[row][col]], x, y, BLOCK_WIDTH, BLOCK_WIDTH);
+        if (matrix[row][col] == 0) {
+          strokeWeight(0.25);
+          stroke(color(255));
+          fill(PLAYFIELD_BACKGROUND_COLOR);
+          rect(x, y, BLOCK_WIDTH, BLOCK_WIDTH);
+        }
+        else {
+          image(blockImages[matrix[row][col]], x, y, BLOCK_WIDTH, BLOCK_WIDTH);
+        }
       }
     }
+  }
+
+  void drawOverlay() {
+    fill(color(0,0,0,200));
+    rect(0,0,PLAYFIELD_WIDTH+1,PLAYFIELD_HEIGHT);
+    textSize(40);
+    fill(color(255));
+    textAlign(CENTER, CENTER);
+    text(tetris.getGameState().overlayText(), 0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT);
   }
 
   int removeRows() {
@@ -90,8 +126,7 @@ class Playfield {
 
     return removedRows;
   }
-
-
+  
   void removeRow(int row) {
     for (int i = row; i > 0; i--) {
       matrix[i] = matrix[i - 1];

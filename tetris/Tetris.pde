@@ -30,7 +30,7 @@ class Tetris {
     this.currentPiece = new Piece();
     this.nextPiece = new Piece();
     
-    this.scoreboard.drawNextPiece(nextPiece);
+    update();
     
     this.blip = new SoundFile(applet, "sounds/blip.mp3");
     this.swoosh = new SoundFile(applet, "sounds/swoosh.mp3");

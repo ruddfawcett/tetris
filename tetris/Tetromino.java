@@ -1,6 +1,9 @@
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * 
+ */
 public enum Tetromino {
   I(1),  // cyan
   J(2),  // blue
@@ -12,6 +15,10 @@ public enum Tetromino {
 
   private final int value;
 
+  /**
+   * Constructs an Enum Tetromino and assigns
+   * the Enum a value.
+   */
   Tetromino(int value) {
     this.value = value;
   }
@@ -20,6 +27,11 @@ public enum Tetromino {
     return value;
   }
 
+  /**
+   * A HashMap of the possible configurations for a
+   * Tetromino for each possible PieceOrientation.
+   * @return Map<PieceOrientation, int[][]> The configurations.
+   */
   public Map<PieceOrientation, int[][]> getConfigurations() {
     Map<PieceOrientation, int[][]> configurations = new HashMap<PieceOrientation, int[][]>();
     int[][] up = new int[][]{};
@@ -186,6 +198,11 @@ public enum Tetromino {
     return configurations;
   }
 
+  /**
+   * The starting coordinates for the type of Tetromino,
+   * as some pieces are four columns wide, while others are three.
+   * @return int[] the start coordinates (x, y) for a Tetromino.
+   */
   public int[] getStartCoordinates() {
     int[] startCoordinates = new int[]{};
 

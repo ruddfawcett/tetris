@@ -1,27 +1,63 @@
+/**
+ * 
+ */
 public enum PieceOrientation {
+  /**
+   * The upright (default) orientation.
+   */
   UP(0),
+  /**
+   * A single rotation clockwise, right.
+   */
   RIGHT(1),
+  /**
+   * Two rotations clockwise, down.
+   */
   DOWN(2),
+  /**
+   * Three rotations clocwise, left.
+   */
   LEFT(3);
 
+  /**
+   * The numerical value of the enum.
+   */
   private final int value;
 
+  /**
+   * Constructs an Enum PieceOrientation with a given value
+   * which is then stored, and used to calculate previous()
+   * and next() values.
+   */
   PieceOrientation(int value) {
     this.value = value;
   }
 
-  PieceOrientation next() { // or rename nextRotation
-    PieceOrientation[] PieceOrientations = this.values();
-    int current = value;
-    int nextIndex = (current + 1) % PieceOrientations.length;
-    return PieceOrientations[nextIndex];
-  }
-
-  PieceOrientation previous() { // or rename nextRotation
+  /**
+   * Uses the index of the current orientation to calculate
+   * the previous orientation cyclically -- UP's previous
+   * rotation is LEFT, even though UP is the first orientation,
+   * and LEFT is the last).
+   * @return PieceOrientation the previous orientation.
+   */
+  PieceOrientation previous() {
     PieceOrientation[] PieceOrientations = this.values();
     int current = value;
     int previousIndex = (current + PieceOrientations.length - 1) % PieceOrientations.length;
     return PieceOrientations[previousIndex];
+  }
+  /**
+   * Uses the index of the current orientation to calculate
+   * the next orientation cyclically -- LEFTS's next
+   * rotation is UP, even though UP is the first orientation,
+   * and LEFT is the last).
+   * @return PieceOrientation the next orientation.
+   */
+  PieceOrientation next() {
+    PieceOrientation[] PieceOrientations = this.values();
+    int current = value;
+    int nextIndex = (current + 1) % PieceOrientations.length;
+    return PieceOrientations[nextIndex];
   }
 
   int getValue() {

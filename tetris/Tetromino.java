@@ -2,17 +2,27 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * 
+ * Citations:
+ * http://stackoverflow.com/a/14149844
+ */
+
+/**
+ * A Tetromino enum.
+ *
+ * @author Rudd Fawcett
  */
 public enum Tetromino {
-  I(1),  // cyan
-  J(2),  // blue
-  L(3),  // orange
-  O(4),  // yellow
-  S(5),  // lime
-  T(6),  // purple
-  Z(7);  // red
+  I(1), // cyan
+  J(2), // blue
+  L(3), // orange
+  O(4), // yellow
+  S(5), // lime
+  T(6), // purple
+  Z(7); // red
 
+  /**
+   * The int representation of a Tetromino.
+   */
   private final int value;
 
   /**
@@ -23,6 +33,9 @@ public enum Tetromino {
     this.value = value;
   }
 
+  /**
+   * An int representation of a Tetromino.
+   */
   public int getValue() {
     return value;
   }
@@ -115,7 +128,7 @@ public enum Tetromino {
           {4,4},
           {4,4}
         };
-
+        // Clone taken from http://stackoverflow.com/a/14149844
         right = up.clone();
         down = up.clone();
         left = up.clone();

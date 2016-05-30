@@ -1,26 +1,22 @@
 /**
- * 
+ * The state of the Tetris game.
+ *
+ * @author Rudd Fawcett
  */
 public enum GameState {
   PAUSED,
   PLAYING,
   OVER;
 
-  public String buttonText() {
-    if (this == PAUSED) {
-      return "Resume";
-    }
+  /**
+   * The opposite state of the game.
+   * Used to show the button text.
+   */
+  public String opposite() {
+   if (this == PAUSED) {
+     return "Play";
+   }
 
-    return "Pause";
-  }
-
-  public String overlayText() {
-    if (this == OVER) {
-      return "You Lost!";
-    } else if (this == PAUSED) {
-      return "Game is Paused";
-    }
-
-    return "";
+   return "Pause";
   }
 }

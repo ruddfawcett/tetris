@@ -1,9 +1,16 @@
 /**
- *
+ * Citations: https://forum.processing.org/one/topic/how-to-display-text-in-the-title-of-the-display-window.html
  */
 
 /**
- * 
+ * Creates a new instance of the Tetris game, and
+ * also houses all of the required Processing functions.
+ *
+ * @author Rudd Fawcett
+ */
+
+/**
+ * The Tetris game instance.
  */
 Tetris tetris;
 
@@ -17,6 +24,8 @@ void settings() {
  * a new Tetris game.
  */
 void setup() {
+  // Set the title of the window
+  // https://forum.processing.org/one/topic/how-to-display-text-in-the-title-of-the-display-window.html
   surface.setTitle("Tetris");
   smooth();
 
@@ -29,7 +38,8 @@ void setup() {
  * the updates of the GUI.
  */
 void draw() {
-  background(Playfield.PLAYFIELD_BACKGROUND_COLOR);
+  background(Scoreboard.SCOREBOARD_BACKGROUND_COLOR);
+  // Update all of the Tetris game components.
   tetris.update();
 }
 

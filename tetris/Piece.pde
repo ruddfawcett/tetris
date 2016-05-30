@@ -3,30 +3,55 @@ import java.util.HashMap;
 import java.util.Arrays;
 
 /**
+ * A piece in the game. This class handles piece
+ * rotation, movement, and also has other helper methods.
  *
+ * @author Rudd Fawcett
  */
 class Piece {
+  /**
+   * The x block postion of the piece
+   */
   private int x;
+  /**
+   * The y block postion of the piece
+   */
   private int y;
+  /**
+   * The int type of the piece, based on the Tetromino
+   * Enum's value.
+   */
   private int type;
 
-  private PieceOrientation orientation;
+  /**
+   * The current orientation of the piece.
+   * Set to UP by default.
+   */
+  private PieceOrientation orientation = PieceOrientation.UP;;
 
+  /**
+   * The possible configurations of the blocks for the piece,
+   * based on the piece's orientation.
+   */
   private Map < PieceOrientation, int[][] > configurations;
+  /**
+   * The start coordinates for the piece.
+   */
   private Map < PieceOrientation, int[][] > startCoordinates;
 
   /**
    * Constructs a new piece, with default orientation UP
    */
   public Piece() {
-    this.orientation = PieceOrientation.UP;
-
+    // Get a random Tetromino, and use it to set the type of the piece.
     Tetromino[] tetrominoes = Tetromino.values();
     Tetromino randomTetromino = Tetromino.values()[(int) random(Tetromino.values().length)];
 
+    // Set the start coordinates
     this.x = randomTetromino.getStartCoordinates()[0];
     this.y = randomTetromino.getStartCoordinates()[1];
 
+    // Set the configurations based on the random Tetromino
     this.configurations = randomTetromino.getConfigurations();
     this.type = randomTetromino.getValue();
   }

@@ -41,6 +41,10 @@ class Tetris {
    */
   private int score = 0;
   /**
+   * The user's high score.
+   */
+  private int highScore = 0;
+  /**
    * The user's current level.
    */
   private int level = 1;
@@ -122,6 +126,10 @@ class Tetris {
   public void end() {
     gameState = GameState.OVER;
     scoreboard.draw();
+    if (score > highScore) {
+      highScore = score;
+    }
+    
     playfield.drawOverlay("You Lost!");
 
     // Stops the draw() function in Launcher from looping
@@ -163,6 +171,13 @@ class Tetris {
     return score;
   }
 
+  /**
+   * The user's high score.
+   */
+  public int getHighScore() {
+    return highScore;
+  }
+  
   /**
    * The user's current level.
    */
@@ -318,6 +333,9 @@ class Tetris {
 
       // Increment the scoreb based on the calculcated value
       score += calculateScore(numLinesRemoved);
+      if (score > highScore) {
+        highScore = score;
+      }
       removedLines += numLinesRemoved;
       // Update the level so it is the score / 10000
       level = (int)(score/10000) + 1; // Add 1 so never 0

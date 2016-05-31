@@ -82,7 +82,7 @@ class Scoreboard {
     fill(color(255)); // white color
     textLeading(35); // Sets the line height to 35, https://processing.org/reference/textLeading_.html
     textAlign(LEFT);
-    text(scoreString(), SCOREBOARD_X_BUFFER + 20, SCOREBOARD_HEIGHT - 250, SCOREBOARD_WIDTH - 20, 150);
+    text(scoreString(), SCOREBOARD_X_BUFFER + 20, SCOREBOARD_HEIGHT - 280, SCOREBOARD_WIDTH - 20, 150);
 
     // Draws the button backgrounds (the white rectangles)
     int buttonPadding = 20; // the buffer around each button
@@ -167,6 +167,6 @@ class Scoreboard {
    * @return String The score string.
    */
   public String scoreString() {
-    return "Level: " + tetris.getLevel() + "\n" + "Score: " + tetris.getScore() + "\n" + "Lines: " + tetris.getRemovedLines();
+    return "Level: " + tetris.getLevel() + "\n" + "High Score: " + tetris.getHighScore() + "\nScore: " + tetris.getScore() + "\n" + "Lines: " + tetris.getRemovedLines();
   }
 }
